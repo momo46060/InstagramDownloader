@@ -25,6 +25,10 @@
     <init>(java.lang.Throwable);
 }
 
+-dontwarn org.conscrypt.Conscrypt$ProviderBuilder
+-dontwarn org.conscrypt.Conscrypt
+
+
 #okhttp
 # JSR 305 annotations are for embedding nullability information.
 -dontwarn javax.annotation.**
@@ -52,3 +56,4 @@
 
 #Image Cropper
 -keep class android.support.v7.widget.** { *; }
+

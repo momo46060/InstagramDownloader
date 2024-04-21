@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.BuildCompat
 import androidx.databinding.DataBindingUtil
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.ActivityVideoPlayerBinding
 import com.app.instancedownload.util.Method
 import com.app.instancedownload.util.changeStatusBarColor
@@ -31,6 +32,8 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     @Inject
     lateinit var method: Method
+ @Inject
+    lateinit var ads: Adsimpl
 
     lateinit var binding: ActivityVideoPlayerBinding
 
@@ -41,6 +44,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_video_player)
+        binding.adView2.loadAd(ads.preperad())
 
         //Making notification bar transparent
         window.decorView.systemUiVisibility =
@@ -65,6 +69,8 @@ class VideoPlayerActivity : AppCompatActivity() {
                         player.stop()
                         player.release()
                         finish()
+                        ads.showad()
+
                     }
                 })
         }

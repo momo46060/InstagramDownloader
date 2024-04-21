@@ -41,7 +41,7 @@ class FindData @Inject constructor(private val context: Context) {
                             val res = String(responseBody)
                             try {
                                 val jsonObject = JSONObject(res)
-                                var link: String? = null
+                                var link: String?
                                 val objectGraphql = jsonObject.getJSONObject("graphql")
                                 val objectMedia = objectGraphql.getJSONObject("shortcode_media")
                                 val isVideo = objectMedia.getBoolean("is_video")

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.BuildCompat
 import androidx.databinding.DataBindingUtil
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.ActivityAboutUsBinding
 import com.app.instancedownload.util.Method
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,9 @@ class AboutUsActivity : AppCompatActivity() {
     @Inject
     lateinit var method: Method
 
+    @Inject
+    lateinit var ads: Adsimpl
+
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
@@ -31,7 +35,7 @@ class AboutUsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_about_us)
-
+        binding.adView2.loadAd(ads.preperad())
         if (BuildCompat.isAtLeastT()) {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(
                 OnBackInvokedDispatcher.PRIORITY_DEFAULT

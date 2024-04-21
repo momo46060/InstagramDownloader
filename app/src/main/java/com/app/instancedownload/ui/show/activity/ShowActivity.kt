@@ -18,6 +18,7 @@ import androidx.lifecycle.asLiveData
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.ActivityImageShowBinding
 import com.app.instancedownload.ui.show.adapter.ShowAdapter
 import com.app.instancedownload.ui.videoplayer.activity.VideoPlayerActivity
@@ -40,6 +41,8 @@ class ShowActivity : AppCompatActivity() {
 
     @Inject
     lateinit var method: Method
+  @Inject
+    lateinit var ads: Adsimpl
 
     @Inject
     lateinit var myDataStore: MyDataStore
@@ -95,6 +98,8 @@ class ShowActivity : AppCompatActivity() {
             binding.imageViewSetAsWallImageShow.startAnimation(myAnim)
             CropImage.activity(Uri.fromFile(File(showArray[binding.viewpagerImageShow.currentItem].toString())))
                 .start(this@ShowActivity)
+            ads.showad()
+
         }
 
         binding.conDeleteImageShow.setOnClickListener {
@@ -115,6 +120,7 @@ class ShowActivity : AppCompatActivity() {
                     deleteFile()
                 }
             }
+            ads.showad()
 
         }
 
@@ -133,6 +139,8 @@ class ShowActivity : AppCompatActivity() {
             Toast.makeText(
                 this@ShowActivity, resources.getString(R.string.share), Toast.LENGTH_SHORT
             ).show()
+            ads.showad()
+
         }
     }
 

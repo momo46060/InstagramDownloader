@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "InstanceDownload"
 include ':app'
+include ':nativetemplates'

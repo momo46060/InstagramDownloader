@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.FragmentBinding
 import com.app.instancedownload.ui.image.adapter.ListAdapter
 import com.app.instancedownload.ui.image.viewmodel.ImageViewModel
@@ -35,6 +36,8 @@ class ImageFragment : Fragment() {
 
     @Inject
     lateinit var method: Method
+  @Inject
+    lateinit var ads: Adsimpl
 
     @Inject
     lateinit var liveData: LiveData<LiveDataType<String>>
@@ -49,6 +52,7 @@ class ImageFragment : Fragment() {
 
         val resId = R.anim.layout_animation_from_bottom
         animation = AnimationUtils.loadLayoutAnimation(activity, resId)
+        databinding.adView2.loadAd(ads.preperad())
 
         databinding.progressbarFragment.gone()
         databinding.textViewNoDataFragment.gone()

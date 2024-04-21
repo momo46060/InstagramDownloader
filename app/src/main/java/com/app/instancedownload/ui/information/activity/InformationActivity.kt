@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.app.instancedownload.BuildConfig
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.ActivityInformationBinding
 import com.app.instancedownload.ui.youtube.YoutubePlayActivity
 import com.app.instancedownload.util.Method
@@ -24,6 +25,9 @@ class InformationActivity : AppCompatActivity() {
     @Inject
     lateinit var method: Method
 
+    @Inject
+    lateinit var ads: Adsimpl
+
     private lateinit var binding: ActivityInformationBinding
 
     override fun attachBaseContext(newBase: Context) {
@@ -34,6 +38,7 @@ class InformationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_information)
+        binding.adView2.loadAd(ads.preperad())
 
         if (BuildCompat.isAtLeastT()) {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(

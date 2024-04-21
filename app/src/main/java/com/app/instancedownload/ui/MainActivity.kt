@@ -14,7 +14,6 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -26,6 +25,7 @@ import androidx.lifecycle.LiveData
 import androidx.viewpager2.widget.ViewPager2
 import com.app.instancedownload.BuildConfig
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.ActivityMainBinding
 import com.app.instancedownload.service.ActiveService
 import com.app.instancedownload.service.DownloadService
@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var method: Method
 
     @Inject
+    lateinit var ads: Adsimpl
+
+    @Inject
     lateinit var liveData: LiveData<LiveDataType<String>>
 
     lateinit var loadingDialog: LoadingDialog
@@ -71,11 +74,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        ads.preperad()
         if (BuildCompat.isAtLeastT()) {
-            onBackInvokedDispatcher.registerOnBackInvokedCallback(
-                OnBackInvokedDispatcher.PRIORITY_DEFAULT
-            ) {
+//            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+//                OnBackInvokedDispatcher.PRIORITY_DEFAULT
+//            )
+            {
                 // Back is pressed... Finishing the activity
                 closeDrawer()
             }
@@ -97,19 +101,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Type.SERVICE -> {
                     switchMaterial.isChecked = false
                 }
+
                 else -> {}
             }
         }
 
-        val requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-                if (!isGranted) {
-                    method.alertBox(this, resources.getString(R.string.msgNfNotAllow))
-                }
-            }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        }
+        /*  val requestPermissionLauncher =
+              registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                  if (!isGranted) {
+                      method.alertBox(this, resources.getString(R.string.msgNfNotAllow))
+                  }
+              }*/
+        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+         }*/
 
         val sdIconStorageDir = File(getExternalFilesDir(BuildConfig.downloadUrl).toString())
 
@@ -175,7 +180,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
 
         binding.buttonSubmitMain.setOnClickListener {
-
             val url = binding.editTextMain.text.toString()
             binding.editTextMain.clearFocus()
             inputMethodManager.hideSoftInputFromWindow(binding.editTextMain.windowToken, 0)
@@ -206,6 +210,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                         binding.editTextMain.setText("")
                         loadingDialog.dismiss()
+                        ads.showad()
 
                     }
 

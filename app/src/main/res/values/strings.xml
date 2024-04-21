@@ -87,5 +87,6 @@
     <string name="cash_file">Cash file</string>
     <string name="clear_cash_memory">Clear cash memory</string>
     <string name="msgNfNotAllow">Please allow the notification otherwise you will not be able to see download progress</string>
+    <string name="banner_ad_id">ca-app-pub-8270803172827285/2160720057</string>
 
 </resources>

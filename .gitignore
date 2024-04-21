@@ -11,3 +11,7 @@
 /build
 /captures
 .externalNativeBuild
+
+# Project exclude paths
+/nativetemplates/build/
+/nativetemplates/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/

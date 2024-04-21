@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textview.MaterialTextView
 import com.app.instancedownload.R
+import com.app.instancedownload.ads.Adsimpl
 import com.app.instancedownload.databinding.ActivitySettingBinding
 import com.app.instancedownload.ui.aboutus.activity.AboutUsActivity
 import com.app.instancedownload.ui.information.activity.InformationActivity
@@ -49,6 +50,8 @@ class SettingActivity : AppCompatActivity() {
 
     @Inject
     lateinit var method: Method
+  @Inject
+    lateinit var ads: Adsimpl
 
     @Inject
     lateinit var myDataStore: MyDataStore
@@ -64,6 +67,7 @@ class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setting)
+        binding.adView2.loadAd(ads.preperad())
 
         if (BuildCompat.isAtLeastT()) {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(
